@@ -3,5 +3,15 @@
     Name: <input type="text" name="loan[name]" value='<%=@loan.name%>' id="loan_name">
     Number: <input type="text" name="loan[number]" value='<%=@loan.number%>' id="loan_num">
     Amount: <input type="text" name="loan[amount]" value='<%=@loan.amount%>' id="loan_amt">
+    <%if !!@entities%>
+        <p>Select Entities for this loan:</p>
+        <%@entities.each do |entity|%>
+            <h3>Borrowers:</h3> <%if entity.entity_type == "Borrower"%>
+                <p><%=entity.name%> <input type="checkbox" name="loan[entities][]" value="<%=entity.id%>" id="loan"></p>
+            <h3>Operating Companies:</h3> <%elsif entity.entity_type == "Operating Company"%>
+                <p><%=entity.name%> <input type="checkbox" name="loan[entities][]" value="<%=entity.id%>" id="loan"></p>
+            <%end%>
+        <%end%>
+    <%end%>
     <input type='submit' value="Edit Loan">
 </form>

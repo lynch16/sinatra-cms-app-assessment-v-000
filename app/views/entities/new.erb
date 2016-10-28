@@ -1,7 +1,22 @@
 <form method='POST' action='/entities'>
     Name: <input type="text" name="entity[name]" id="entity_name">
-    <p>Types:</p>
-    <p>Borrower: <input type="checkbox" name="entity[entity_type]" value="Borrower" id="entity_type"></p>
-    Structure: <input type="text" name="entity[structure]" id="entity_structure">
+
+    <h3>Type: (select one)</h3>
+    <p>Borrower <input type="radio" name="entity[entity_type]" value="Borrower" id="entity_type"></p>
+    <p>Operating Company <input type="radio" name="entity[entity_type]" value="Operating Company" id="entity_type"></p>
+
+    <h3>Structure: (select one)</h3>
+    <p>Individual <input type="radio" name="entity[structure]" id="entity_structure" value="Individual"></p>
+    <p>Limited Liability Company <input type="radio" name="entity[structure]" id="entity_structure" value="LLC"></p>
+    <p>Corporation <input type="radio" name="entity[structure]" id="entity_structure" value="Corporation"></p>
+    <p>Partnership <input type="radio" name="entity[structure]" id="entity_structure" value="Partnership"></p>
+
+    <%if !!@loans%>
+        <p>Select a Loan for this Entity:</p>
+        <%@loans.each do |loan|%>
+            <p><%=loan.name%> <input type="radio" name="entity[loan_id]" value="<%=loan.id%>" id="loan_id"></p>
+        <%end%>
+    <%end%>
+
     <input type='submit' value="Create Entity">
 </form>

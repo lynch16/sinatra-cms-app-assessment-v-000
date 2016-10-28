@@ -1,8 +1,16 @@
 <form method='POST' action='/entities/<%=@entity.id%>'>
     <input type='hidden' id='hidden' name='_method' value='patch'>
     Name: <input type="text" name="entity[name]" value='<%=@entity.name%>' id="entity_name">
-    <p>Type: </p>
-    <p>Borrower: <input checked="<%=@entity.type=='borrower' ? checked : unchecked%>" type="checkbox" name="entity[entity_type]" value='Borrower' id="entity_type"></p>
-    Structure: <input type="text" name="entity[structure]" value='<%=@entity.structure%>' id="entity_structure">
+
+    <h3>Type: (select one) </h3>
+    <p>Borrower: <input type="radio" name="entity[entity_type]" value='Borrower' id="entity_type" <%=@entity.entity_type=='Borrower' ? 'checked' : 'unchecked'%>></p>
+    <p>Operating Company <input type="radio" name="entity[entity_type]" value='Operating Company' id="entity_type" <%=@entity.entity_type=='Operating Company' ? 'checked' : 'unchecked'%>></p>
+
+    <h3>Structure: (select one)</h3>
+    <p>Individual <input type="radio" name="entity[structure]" id="entity_structure" value="Individual" <%=@entity.structure=='Individual' ? 'checked' : 'unchecked'%>></p>
+    <p>Limited Liability Company <input type="radio" name="entity[structure]" id="entity_structure" value="LLC" <%=@entity.structure=='Limited Liability Company' ? 'checked' : 'unchecked'%>></p>
+    <p>Corporation <input  type="radio" name="entity[structure]" id="entity_structure" value="Corporation" <%=@entity.structure=='Corporation' ? 'checked' : 'unchecked'%>></p>
+    <p>Partnership <input  type="radio" name="entity[structure]" id="entity_structure" value="Partnership" <%=@entity.structure=='Partnership' ? 'checked' : 'unchecked'%>></p>
+
     <input type='submit' value="Edit Loan">
 </form>

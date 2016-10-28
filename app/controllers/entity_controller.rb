@@ -11,6 +11,7 @@ class EntityController < ApplicationController
 
     get '/entities/new' do
         if !!session[:id]
+            @loans = Loan.all
             erb :'/entities/new'
         else
             redirect '/login'
