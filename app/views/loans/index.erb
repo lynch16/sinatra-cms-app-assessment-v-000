@@ -1,1 +1,5 @@
 Loans Index
+<%@loans.each do |loan|%>
+<p><a href="/loans/<%=loan.id%>"><%=loan.id%> - <%=loan.name%></a></p>
+<%end%>
+<a href="/loans/new">Create New Loan</a>

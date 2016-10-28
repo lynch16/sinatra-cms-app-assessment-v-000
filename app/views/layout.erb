@@ -6,7 +6,7 @@
 
     <body>
         <% if flash.has?(:message) %>
-          <%= flash[:message] %>
+          <h2><%= flash[:message] %></h2>
         <% end %>
         <%=yield%>
     </body>

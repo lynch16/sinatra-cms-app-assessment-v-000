@@ -1,5 +1,5 @@
 class Entity < ActiveRecord::Base
-    validates :name, :type, :structure, presence: true
+    validates :name, :entity_type, :structure, presence: true
 
     belongs_to :loan
 end

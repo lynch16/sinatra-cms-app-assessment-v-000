@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20161028130652) do
   create_table "entities", force: :cascade do |t|
     t.string  "name"
     t.string  "state"
-    t.string  "type"
+    t.string  "entity_type"
     t.string  "structure"
     t.string  "signor"
     t.string  "signor_title"

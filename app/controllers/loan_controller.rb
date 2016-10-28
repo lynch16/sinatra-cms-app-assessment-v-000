@@ -2,6 +2,7 @@ class LoanController < ApplicationController
 
     get '/loans' do
         if !!session[:id]
+            @loans = Loan.all
             erb :'/loans/index'
         else
             redirect '/login'
@@ -21,7 +22,7 @@ class LoanController < ApplicationController
         @loan = Loan.new(params[:loan])
         if !@loan.save
             flash[:message]="Error saving loan. Please check entries."
-            redirect '/loans/new'
+            erb :'/loans/new'
         else
             @loan.save
             redirect '/loans'
@@ -50,9 +51,14 @@ class LoanController < ApplicationController
 
     patch '/loans/:id' do
         @loan = Loan.find(params[:id])
-        @loan.update
+        @loan.update(params[:loan])
         @loan.save
         redirect "/loans/#{@loan.id}"
     end
 
+    delete '/loans/:id/delete' do
+        @loan = Loan.find(params[:id])
+        @loan.delete
+        redirect '/loans'
+    end
 end

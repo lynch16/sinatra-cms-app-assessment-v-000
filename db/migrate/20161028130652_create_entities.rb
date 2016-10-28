@@ -3,7 +3,7 @@ class CreateEntities < ActiveRecord::Migration[5.0]
       create_table :entities do |t|
           t.string :name
           t.string :state
-          t.string :type
+          t.string :entity_type
           t.string :structure
           t.string :signor
           t.string :signor_title
