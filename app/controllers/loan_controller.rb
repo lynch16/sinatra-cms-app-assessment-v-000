@@ -11,6 +11,7 @@ class LoanController < ApplicationController
 
     get '/loans/new' do
         if !!session[:id]
+            @entities = Entity.new
             erb :'/loans/new'
         else
             redirect '/login'
@@ -43,6 +44,7 @@ class LoanController < ApplicationController
         if !!session[:id]
             @loan = Loan.find(params[:id])
             @user = User.find(session[:id])
+            @entities = Entity.all
             if @user == @loan.user
                 erb :'/loans/edit'
             else

@@ -7,7 +7,7 @@
         <p>Select Entities for this loan:</p>
         <%@entities.each do |entity|%>
             <h3>Borrowers:</h3> <%if entity.entity_type == "Borrower"%>
-                <p><%=entity.name%> <input type="checkbox" name="loan[entities][]" value="<%=entity.id%>" id="loan"></p>
+                <p><%=entity.name%> <input type="checkbox" checked="<%=@loan.entities.include?(entity) ? 'checked' : 'unchecked'%>" name="loan[entities][]" value="<%=entity.id%>" id="loan"></p>
             <h3>Operating Companies:</h3> <%elsif entity.entity_type == "Operating Company"%>
                 <p><%=entity.name%> <input type="checkbox" name="loan[entities][]" value="<%=entity.id%>" id="loan"></p>
             <%end%>
