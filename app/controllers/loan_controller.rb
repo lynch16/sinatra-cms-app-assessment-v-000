@@ -24,6 +24,7 @@ class LoanController < ApplicationController
             flash[:message]="Error saving loan. Please check entries."
             erb :'/loans/new'
         else
+            @loan.user = @user
             @loan.save
             redirect '/loans'
         end
@@ -42,8 +43,12 @@ class LoanController < ApplicationController
         if !!session[:id]
             @loan = Loan.find(params[:id])
             @user = User.find(session[:id])
-            #update loan.last_user once column added
-            erb :'/loans/edit'
+            if @user == @loan.user
+                erb :'/loans/edit'
+            else
+                flash[:message] = "Not your loan to edit"
+                redirect "/loans/#{@loan.id}"
+            end
         else
             redirect '/login'
         end
