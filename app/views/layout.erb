@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Loan Management System </h1>
+    </head>
+
+    <body>
+        <% if flash.has?(:message) %>
+          <%= flash[:message] %>
+        <% end %>
+        <%=yield%>
+    </body>
+</html>
