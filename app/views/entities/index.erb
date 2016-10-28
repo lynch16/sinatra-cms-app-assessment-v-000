@@ -1,0 +1,5 @@
+Entities Index
+<%@entities.each do |entity|%>
+<p><a href="/entities/<%=entity.id%>"><%=entity.id%> - <%=entity.name%></a></p>
+<%end%>
+<a href="/entities/new">Create New Entity</a>

@@ -1,0 +1,8 @@
+<form method='POST' action='/entities/<%=@entity.id%>'>
+    <input type='hidden' id='hidden' name='_method' value='patch'>
+    Name: <input type="text" name="entity[name]" value='<%=@entity.name%>' id="entity_name">
+    <p>Type: </p>
+    <p>Borrower: <input checked="<%=@entity.type=='borrower' ? checked : unchecked%>" type="checkbox" name="entity[entity_type]" value='Borrower' id="entity_type"></p>
+    Structure: <input type="text" name="entity[structure]" value='<%=@entity.structure%>' id="entity_structure">
+    <input type='submit' value="Edit Loan">
+</form>

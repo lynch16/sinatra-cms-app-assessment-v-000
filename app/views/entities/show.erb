@@ -1,0 +1,9 @@
+<p><%=@entity.name%></p>
+<p><%=@entity.entity_type%></p>
+<p><%=@entity.structure%></p>
+
+<p><a href="/entities/<%=@entity.id%>/edit">Edit Entity</a></p>
+<form method="POST" action="/entities/<%=@entity.id%>/delete">
+    <input type='hidden' id='hidden' name='_method' value='delete'>
+    <input type='submit' value='Delete Entity'>
+</form>

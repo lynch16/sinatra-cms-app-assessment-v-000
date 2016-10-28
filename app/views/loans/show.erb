@@ -1,0 +1,9 @@
+<p><%=@loan.name%></p>
+<p><%=@loan.number%></p>
+<p><%=@loan.amount%></p>
+
+<p><a href="/loans/<%=@loan.id%>/edit">Edit Loan</a></p>
+<form method="POST" action="/loans/<%=@loan.id%>/delete">
+    <input type='hidden' id='hidden' name='_method' value='delete'>
+    <input type='submit' value='Delete Loan'>
+</form>
