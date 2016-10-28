@@ -11,7 +11,7 @@ class ApplicationController < Sinatra::Base
     get '/' do
         if !!session[:id]
             @user = User.find(session[:id])
-            redirect 'loans/index'
+            redirect '/loans'
         else
             erb :index
         end
@@ -20,7 +20,7 @@ class ApplicationController < Sinatra::Base
     get '/signup' do
         if !!session[:id]
             @user = User.find(session[:id])
-            redirect 'loans/index'
+            redirect '/loans'
         else
             erb :signup
         end
@@ -43,7 +43,7 @@ class ApplicationController < Sinatra::Base
             else
                 session[:id] = @user.id
                 @user.save
-                redirect '/loans/index'
+                redirect '/loans'
             end
         end
     end
@@ -51,7 +51,7 @@ class ApplicationController < Sinatra::Base
     get '/login' do
         if !!session[:id]
             @user = User.find(session[:id])
-            redirect 'loans/index'
+            redirect 'loans'
         else
             erb :login
         end
@@ -62,17 +62,19 @@ class ApplicationController < Sinatra::Base
         if !@user
             flash[:message] = "Username invalid"
             redirect '/login'
-        elsif @user.authenticate(params[:password])
+        elsif !@user.authenticate(params[:password])
             flash[:message] = "Password invalid"
             redirect '/login'
         else
             session[:id] = @user.id
-            redirect '/loans/index'
+            redirect '/loans'
         end
     end
 
     get '/logout' do
-        session.clear
+        if !!session[:id]
+            session.clear
+        end
         redirect '/'
     end
 end
