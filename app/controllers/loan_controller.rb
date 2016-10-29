@@ -65,7 +65,13 @@ class LoanController < ApplicationController
 
     delete '/loans/:id/delete' do
         @loan = Loan.find(params[:id])
-        @loan.delete
-        redirect '/loans'
+        @user = User.find(session[:id])
+        if @loan.user == @user
+            @loan.delete
+            redirect '/loans'
+        else
+            flash[:message] = "Not your loan to delete"
+            redirect "/loans#{@loan.id}"
+        end
     end
 end
