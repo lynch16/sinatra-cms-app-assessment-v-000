@@ -1,0 +1,83 @@
+/* //////// BACKGROUND ///// */
+.background {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+    background-size: cover;
+}
+
+/* ///// GLOBAL //////*/
+.block_links h3+p a {
+    display: block;
+}
+.shadow{
+    box-shadow: 0 3px 10px #333;
+}
+
+/* ///// Nav ////*/
+.logged_in {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #777;
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    text-decoration: none;
+}
+
+.logged_in a {
+    color: #777;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.logged_in a:hover {
+    color: #555;
+}
+
+.logout {
+    font-size: 12px;
+}
+
+#login {
+    padding-top: .5em;
+}
+/*///// MAIN CONTENT //// */
+
+#featured_content {
+  padding: 30px;
+  margin-bottom: 20px;
+  background: white;
+}
+
+/*/////// MEDIA ////////*/
+
+img, video, audio, iframe, table, form {
+  width: 100%; /* IE */
+  max-width: 100%; /* FF, Safari, Chrome */
+}
+
+/* /////// FIXES /////// */
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  line-height: 0;
+}
+
+.clear {
+  clear:both;
+}

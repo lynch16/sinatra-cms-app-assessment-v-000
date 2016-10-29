@@ -2,13 +2,16 @@ require 'rack-flash'
 class ApplicationController < Sinatra::Base
     use Rack::Flash
     register Sinatra::ActiveRecordExtension
+
     configure do
         enable :sessions
         set :session_secret, "my_application_secret"
+        set :public_dir, Proc.new { File.join(File.dirname(__FILE__), 'css') }
         set :views, Proc.new { File.join(root, "../views/") }
     end
 
     get '/' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @user = User.find(session[:id])
             redirect '/loans'
@@ -18,6 +21,7 @@ class ApplicationController < Sinatra::Base
     end
 
     get '/signup' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @user = User.find(session[:id])
             redirect '/loans'
@@ -27,6 +31,7 @@ class ApplicationController < Sinatra::Base
     end
 
     post '/signup' do
+        @route = Rack::Request.new(env).path_info
         @user = User.find_by(username: params[:username])
         if !!@user
             flash[:message] = "Username already exists"
@@ -49,6 +54,7 @@ class ApplicationController < Sinatra::Base
     end
 
     get '/login' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @user = User.find(session[:id])
             redirect 'loans'

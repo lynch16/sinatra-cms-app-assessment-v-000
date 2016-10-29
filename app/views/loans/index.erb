@@ -1,5 +1,18 @@
-Loans Index
-<%@loans.each do |loan|%>
-<p><a href="/loans/<%=loan.id%>"><%=loan.id%> - <%=loan.name%></a></p>
-<%end%>
-<a href="/loans/new">Create New Loan</a>
+<h3>Loans:</h3>
+<table style="width:100%">
+  <tr>
+    <th>Loan Number</th>
+    <th>Loan Name</th>
+    <th>Loan Amount</th>
+  </tr>
+  <%@loans.each do |loan|%>
+  <tr>
+    <td><a href="/loans/<%=loan.id%>"><%=loan.number%></a></td>
+    <td><%=loan.name%></td>
+    <td><%=loan.amount%></td>
+  </tr>
+  <%end%>
+ </table>
+<br>
+<br>
+<p><a href="/loans/new">Create New Loan</a></p>

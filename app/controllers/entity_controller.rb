@@ -1,6 +1,7 @@
 class EntityController < ApplicationController
 
     get '/entities' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @entities = Entity.all
             erb :'/entities/index'
@@ -10,6 +11,7 @@ class EntityController < ApplicationController
     end
 
     get '/entities/new' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @loans = Loan.all
             erb :'/entities/new'
@@ -31,6 +33,7 @@ class EntityController < ApplicationController
     end
 
     get '/entities/:id' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @entity = Entity.find(params[:id])
             erb :'/entities/show'
@@ -40,6 +43,7 @@ class EntityController < ApplicationController
     end
 
     get '/entities/:id/edit' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @user = User.find(session[:id])
             @entity = Entity.find(params[:id])
@@ -51,8 +55,17 @@ class EntityController < ApplicationController
     end
 
     patch '/entities/:id' do
+        @entity = Entity.find(params[:id])
+        @entity.update(params[:entity])
+        @entity.save
+        redirect "/entities/#{@entity.id}"
     end
 
     delete '/entities/:id/delete' do
+        if !!session[:id]
+            @entity = Entity.find(params[:id])
+            @entity.delete
+        end
+        redirect '/entities'
     end
 end

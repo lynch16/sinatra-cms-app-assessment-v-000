@@ -1,6 +1,7 @@
 class LoanController < ApplicationController
 
     get '/loans' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @loans = Loan.all
             erb :'/loans/index'
@@ -10,8 +11,9 @@ class LoanController < ApplicationController
     end
 
     get '/loans/new' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
-            @entities = Entity.new
+            @entities = Entity.all
             erb :'/loans/new'
         else
             redirect '/login'
@@ -32,6 +34,7 @@ class LoanController < ApplicationController
     end
 
     get '/loans/:id' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @loan = Loan.find(params[:id])
             erb :'/loans/show'
@@ -41,6 +44,7 @@ class LoanController < ApplicationController
     end
 
     get '/loans/:id/edit' do
+        @route = Rack::Request.new(env).path_info
         if !!session[:id]
             @loan = Loan.find(params[:id])
             @user = User.find(session[:id])

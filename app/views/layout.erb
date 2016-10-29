@@ -8,7 +8,8 @@
 
 
     <!-- Bootstrap -->
-    <%=stylesheet_link_tag "bootstrap.min.css"%>
+    <link rel="stylesheet" href="/style/bootstrap.min.css">
+    <link rel="stylesheet" href="/style/style.css">
 
     <!--Custom Style-->
     <!--<link rel="stylesheet" href="../assets/stylesheets/style.css"-->
@@ -22,6 +23,7 @@
     </head>
 
     <body>
+    <div class="background">
      <div class="container">
        <div class="row">
          <div class="col-sm-12">
@@ -35,25 +37,30 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">S&amp;R</a>
+                    <a class="navbar-brand" href="/">S&amp;R</a>
                   </div>
 
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                      <li class="active"><a href="/">Home</a></li>
-                      <li><a href="/loans">All Loans</a></li>
-                      <li><a href="/entities">All Entities</a></li>
-                      <li><a href="/loans/new">New Loan</a></li>
-                      <li><a href="/entities/new">New Entity</a></li>
+                      <li class="<%=@route == '/' ? 'active' : ''%>"><a href="/">Home</a></li>
+                      <li class="<%=@route == '/loans' ? 'active' : ''%>"><a href="/loans">All Loans</a></li>
+                      <li class="<%=@route == '/entities' ? 'active' : ''%>"><a href="/entities">All Entities</a></li>
+                      <li class="<%=@route == '/loans/new' ? 'active' : ''%>"><a href="/loans/new">New Loan</a></li>
+                      <li class="<%=@route == '/entities/new' ? 'active' : ''%>"><a href="/entities/new">New Entity</a></li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right" id="login">
-                      <li><form method='POST' action='/login'>
+                    <ul class="nav navbar-nav navbar-right">
+                        <%if !!session[:id]%>
+                        <a class="logged_in" href="/"><%=User.find(session[:id]).username%></a>
+                        <a class="logged_in logout" href="/logout">Logout</a>
+                        <%else%>
+                      <li id="login"><form method='POST' action='/login'>
                           <input type='text' name='username' placeholder='username' id='username'>
                           <input type='password' name='password' placeholder='password' id='password'>
                           <input type='submit' value='Log In'>
-                      </form>
+                      </form></li>
+                      <%end%>
                     </ul>
                   </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -62,14 +69,13 @@
         </div><!--/.row-->
 
           <div class="col-sm-12 shadow" id="featured_content"> <!--main content-->
-              <%yield%>
+              <%=yield%>
           </div>
         </div> <!-- /.container-->
-
+    </div> <!-- /.background-->
        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
-
+        <script src="/bootstrap.min.js"></script>
     </body>
 </html>

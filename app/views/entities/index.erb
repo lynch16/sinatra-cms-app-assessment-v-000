@@ -1,5 +1,19 @@
-Entities Index
-<%@entities.each do |entity|%>
-<p><a href="/entities/<%=entity.id%>"><%=entity.id%> - <%=entity.name%></a></p>
-<%end%>
-<a href="/entities/new">Create New Entity</a>
+<h3>Entities</h3>
+<table style="width:100%">
+  <tr>
+    <th>Entity Name</th>
+    <th>Entity Type</th>
+    <th>Entity Structure</th>
+  </tr>
+  <%@entities.each do |entity|%>
+  <tr>
+    <td><a href="/loans/<%=entity.id%>"><%=entity.name%></a></td>
+    <td><%=entity.entity_type%></td>
+    <td><%=entity.structure%></td>
+  </tr>
+  <%end%>
+ </table>
+<br>
+<br>
+
+<p><a href="/entities/new">Create New Entity</a></p>
