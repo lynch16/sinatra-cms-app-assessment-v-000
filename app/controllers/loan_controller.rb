@@ -23,6 +23,8 @@ class LoanController < ApplicationController
     post '/loans' do
         @user = User.find(session[:id])
         @loan = Loan.new(params[:loan])
+        @entities = Entity.all.select { |e| e.id.to_s == params[:entity_id] }
+        @loan.entities = @entities
         if !@loan.save
             flash[:message]="Error saving loan. Please check entries."
             erb :'/loans/new'

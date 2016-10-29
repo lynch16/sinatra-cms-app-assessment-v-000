@@ -24,7 +24,6 @@
 
     <body>
     <div class="background">
-     <div class="container">
        <div class="row">
          <div class="col-sm-12">
             <nav class="navbar navbar-default">
@@ -41,7 +40,7 @@
                   </div>
 
                   <!-- Collect the nav links, forms, and other content for toggling -->
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" aria-expanded="false">
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                       <li><a href="/">Home</a></li>
                       <li class="<%=@route == '/loans' ? 'active' : ''%>"><a href="/loans">All Loans</a></li>
@@ -68,14 +67,17 @@
             </div>
         </div><!--/.row-->
 
-          <div class="col-sm-12 shadow" id="featured_content"> <!--main content-->
-              <%=yield%>
-          </div>
+        <div class="container">
+            <div class="row shadow" id="featured_content">
+                <div class="col-sm-12">
+                    <%=yield%>
+                </div>
+            </div><!--featured_content-->
         </div> <!-- /.container-->
     </div> <!-- /.background-->
        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="/bootstrap.min.js"></script>
+        <script src="/script/bootstrap.min.js"></script>
     </body>
 </html>

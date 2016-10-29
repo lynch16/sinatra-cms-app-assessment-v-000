@@ -1,9 +1,24 @@
-<p><%=@loan.name%></p>
-<p><%=@loan.number%></p>
-<p><%=@loan.amount%></p>
-
-<p><a href="/loans/<%=@loan.id%>/edit">Edit Loan</a></p>
+<table style="width:100%">
+  <tr>
+    <th>Loan Number</th>
+    <th>Loan Name</th>
+    <th>Loan Amount</th>
+    <th>Entities</th>
+  </tr>
+  <tr>
+    <td><a href="/loans/<%=@loan.id%>"><%=@loan.number%></a></td>
+    <td><%=@loan.name%></td>
+    <td><%=@loan.amount%></td>
+    <td><%@loan.entities.each do |e|%>
+        <li><a href="/entities/<%=e.id%>"><%=e.name%></a></li>
+        <%end%></td>
+  </tr>
+ </table>
+<br>
+<ul><form method="GET" action="/loans/<%=@loan.id%>/edit">
+    <input type='submit' value='Edit Loan'>
+</form>
 <form method="POST" action="/loans/<%=@loan.id%>/delete">
     <input type='hidden' id='hidden' name='_method' value='delete'>
     <input type='submit' value='Delete Loan'>
-</form>
+</form></ul>

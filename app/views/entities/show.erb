@@ -1,9 +1,22 @@
-<p><%=@entity.name%></p>
-<p><%=@entity.entity_type%></p>
-<p><%=@entity.structure%></p>
-
-<p><a href="/entities/<%=@entity.id%>/edit">Edit Entity</a></p>
+<table style="width:100%">
+  <tr>
+    <th>Entity Number</th>
+    <th>Entity Name</th>
+    <th>Entity Amount</th>
+    <th>Loan</th>
+  </tr>
+  <tr>
+    <td><a href="/entities/<%=@entity.id%>"><%=@entity.name%></a></td>
+    <td><%=@entity.entity_type%></td>
+    <td><%=@entity.structure%></td>
+    <td><a href="/loans/<%=@entity.loan.id%>"><%=@entity.loan.name%></a></td>
+  </tr>
+</table>
+<br>
+<ul><form method="GET" action="/entities/<%=@entity.id%>/edit">
+    <input type='submit' value='Edit Entity'>
+</form>
 <form method="POST" action="/entities/<%=@entity.id%>/delete">
     <input type='hidden' id='hidden' name='_method' value='delete'>
     <input type='submit' value='Delete Entity'>
-</form>
+</form></ul>
