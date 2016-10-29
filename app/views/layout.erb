@@ -41,9 +41,9 @@
                   </div>
 
                   <!-- Collect the nav links, forms, and other content for toggling -->
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" aria-expanded="false">
                     <ul class="nav navbar-nav">
-                      <li class="<%=@route == '/' ? 'active' : ''%>"><a href="/">Home</a></li>
+                      <li><a href="/">Home</a></li>
                       <li class="<%=@route == '/loans' ? 'active' : ''%>"><a href="/loans">All Loans</a></li>
                       <li class="<%=@route == '/entities' ? 'active' : ''%>"><a href="/entities">All Entities</a></li>
                       <li class="<%=@route == '/loans/new' ? 'active' : ''%>"><a href="/loans/new">New Loan</a></li>
