@@ -11,16 +11,16 @@
     Number: <input type="text" name="loan[number]" id="loan_num">
     Amount: <input type="text" name="loan[amount]" id="loan_amt">
 
-    <%if !!@entities%>
+    <%if !!@loan.entities%>
         <h3>Select Entities for this loan:</h3>
         <h4>Borrowers:</h4>
-        <%@entities.each do |entity|%>
+        <%@loan.entities.each do |entity|%>
             <%if entity.entity_type == "Borrower"%>
                 <p><%=entity.name%> <input type="checkbox" name="entity_ids[]" value="<%=entity.id%>" id="loan"></p>
             <%end%>
         <%end%>
         <h4>Operating Companies:</h4>
-        <%@entities.each do |entity|%>
+        <%@loan.entities.each do |entity|%>
             <%if entity.entity_type == "Operating Company"%>
                 <p><%=entity.name%> <input type="checkbox" name="entity_ids[]" value="<%=entity.id%>" id="loan"></p>
             <%end%>

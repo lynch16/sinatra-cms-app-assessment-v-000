@@ -13,7 +13,6 @@ class LoanController < ApplicationController
     get '/loans/new' do
         @route = Rack::Request.new(env).path_info
         if logged_in?
-            @entities = Entity.all
             erb :'/loans/new'
         else
             redirect '/login'
@@ -53,7 +52,6 @@ class LoanController < ApplicationController
         @route = Rack::Request.new(env).path_info
         if logged_in?
             @loan = Loan.find(params[:id])
-            @entities = Entity.all
             if @loan.user == current_user
                 erb :'/loans/edit'
             else

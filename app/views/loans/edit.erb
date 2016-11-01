@@ -3,13 +3,18 @@
     Name: <input type="text" name="loan[name]" value='<%=@loan.name%>' id="loan_name">
     Number: <input type="text" name="loan[number]" value='<%=@loan.number%>' id="loan_num">
     Amount: <input type="text" name="loan[amount]" value='<%=@loan.amount%>' id="loan_amt">
-    <%if !!@entities%>
+    <%if !!@loan.entities%>
         <h3>Select Entities for this loan:</h3>
-        <%@entities.each do |entity|%>
-            <h4>Borrowers:</h4> <%if entity.entity_type == "Borrower"%>
-                <p><%=entity.name%> <input type="checkbox" checked="<%=@loan.entities.include?(entity) ? 'checked' : 'unchecked'%>" name="loan[entities][]" value="<%=entity.id%>" id="loan"></p>
-            <h4>Operating Companies:</h4> <%elsif entity.entity_type == "Operating Company"%>
-                <p><%=entity.name%> <input type="checkbox" name="loan[entities][]" value="<%=entity.id%>" id="loan"></p>
+        <h4>Borrowers:</h4>
+        <%@loan.entities.each do |entity|%>
+            <%if entity.entity_type == "Borrower"%>
+                <p><%=entity.name%> <input type="checkbox" checked="<%=@loan.entities.include?(entity) ? 'checked' : 'unchecked'%>" name="loan[entity_ids][]" value="<%=entity.id%>" id="loan"></p>
+                <%end%>
+            <%end%>
+        <h4>Operating Companies:</h4>
+        <%@loan.entities.each do |entity|%>
+            <%if entity.entity_type == "Operating Company"%>
+                <p><%=entity.name%> <input type="checkbox" checked="<%=@loan.entities.include?(entity) ? 'checked' : 'unchecked'%>" name="loan[entity_ids][]" value="<%=entity.id%>" id="loan"></p>
             <%end%>
         <%end%>
     <%end%>
