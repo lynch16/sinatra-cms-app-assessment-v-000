@@ -27,7 +27,7 @@ class EntityController < ApplicationController
             @entity = Entity.new(params[:entity])
             if !@entity.save
                 flash[:message]="Error saving entity. Please check entries."
-                erb :'/entities/new'
+                redirect '/entities/new'
             else
                 @entity.user = current_user
                 @entity.save
@@ -71,7 +71,6 @@ class EntityController < ApplicationController
             else
                 flash[:message] = "Not your data to edit"
             end
-
             redirect "/entities/#{@entity.id}"
         else
             redirect "/login"

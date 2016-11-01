@@ -32,7 +32,7 @@ class LoanController < ApplicationController
             end
             if !@loan.save
                 flash[:message]="Error saving loan. Please check entries."
-                erb :'/loans/new'
+                redirect '/loans/new'
             else
                 @loan.user = current_user
                 @loan.save
