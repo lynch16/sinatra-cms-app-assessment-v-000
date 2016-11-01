@@ -12,7 +12,7 @@
     <p>Partnership <input type="radio" name="entity[structure]" id="entity_structure" value="Partnership"></p>
 
     <%if !!@loans%>
-        <p>Select a Loan for this Entity:</p>
+        <h3>Select a Loan for this Entity:</h3>
         <%@loans.each do |loan|%>
             <p><%=loan.name%> <input type="radio" name="entity[loan_id]" value="<%=loan.id%>" id="loan_id"></p>
         <%end%>

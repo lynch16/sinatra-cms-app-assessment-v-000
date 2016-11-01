@@ -70,6 +70,9 @@
         <div class="container">
             <div class="row shadow" id="featured_content">
                 <div class="col-sm-12">
+                    <% if flash.has?(:message) %>
+                      <%= flash[:message] %>
+                    <% end %>
                     <%=yield%>
                 </div>
             </div><!--featured_content-->

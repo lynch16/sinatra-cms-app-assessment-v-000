@@ -13,6 +13,7 @@ class LoanController < ApplicationController
     get '/loans/new' do
         @route = Rack::Request.new(env).path_info
         if logged_in?
+            @entities = Entity.all
             erb :'/loans/new'
         else
             redirect '/login'
@@ -24,8 +25,10 @@ class LoanController < ApplicationController
             redirect '/login'
         else
             @loan = Loan.new(params[:loan])
-            params[:entity_ids].each do |id|
-                @loan.entities << Entity.all.select { |e| e.id.to_s == id }
+            if !!params[:entity_ids]
+                params[:entity_ids].each do |id|
+                    @loan.entities << Entity.all.select { |e| e.id.to_s == id }
+                end
             end
             if !@loan.save
                 flash[:message]="Error saving loan. Please check entries."
@@ -66,8 +69,12 @@ class LoanController < ApplicationController
     patch '/loans/:id' do
         if logged_in?
             @loan = Loan.find(params[:id])
-            @loan.update(params[:loan])
-            @loan.save
+            if @loan.user == current_user
+                @loan.update(params[:loan])
+                @loan.save
+            else
+                flash[:message] = "Not your loan to edit"
+            end
             redirect "/loans/#{@loan.id}"
         else
             redirect '/login'
@@ -82,7 +89,7 @@ class LoanController < ApplicationController
                 redirect '/loans'
             else
                 flash[:message] = "Not your loan to delete"
-                redirect "/loans#{@loan.id}"
+                redirect "/loans/#{@loan.id}"
             end
         else
             redirect "/login"

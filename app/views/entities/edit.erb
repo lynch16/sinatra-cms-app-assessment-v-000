@@ -3,14 +3,21 @@
     Name: <input type="text" name="entity[name]" value='<%=@entity.name%>' id="entity_name">
 
     <h3>Type: (select one) </h3>
-    <p>Borrower: <input type="radio" name="entity[entity_type]" value='Borrower' id="entity_type" <%=@entity.entity_type=='Borrower' ? 'checked' : 'unchecked'%>></p>
-    <p>Operating Company <input type="radio" name="entity[entity_type]" value='Operating Company' id="entity_type" <%=@entity.entity_type=='Operating Company' ? 'checked' : 'unchecked'%>></p>
+    <p>Borrower: <input type="radio" name="entity[entity_type]" value='Borrower' id="entity_type" <%=@entity.entity_type=='Borrower' ? 'checked' : 'unchecked'%>> </p>
+    <p>Operating Company <input type="radio" name="entity[entity_type]" value='Operating Company' id="entity_type" <%=@entity.entity_type=='Operating Company' ? 'checked' : 'unchecked'%>> </p>
 
     <h3>Structure: (select one)</h3>
-    <p>Individual <input type="radio" name="entity[structure]" id="entity_structure" value="Individual" <%=@entity.structure=='Individual' ? 'checked' : 'unchecked'%>></p>
-    <p>Limited Liability Company <input type="radio" name="entity[structure]" id="entity_structure" value="LLC" <%=@entity.structure=='Limited Liability Company' ? 'checked' : 'unchecked'%>></p>
-    <p>Corporation <input  type="radio" name="entity[structure]" id="entity_structure" value="Corporation" <%=@entity.structure=='Corporation' ? 'checked' : 'unchecked'%>></p>
-    <p>Partnership <input  type="radio" name="entity[structure]" id="entity_structure" value="Partnership" <%=@entity.structure=='Partnership' ? 'checked' : 'unchecked'%>></p>
+    <p>Individual <input type="radio" name="entity[structure]" id="entity_structure" value="Individual" <%=@entity.structure=='Individual' ? 'checked' : 'unchecked'%>> </p>
+    <p>Limited Liability Company <input type="radio" name="entity[structure]" id="entity_structure" value="LLC" <%=@entity.structure=='Limited Liability Company' ? 'checked' : 'unchecked'%>> </p>
+    <p>Corporation <input  type="radio" name="entity[structure]" id="entity_structure" value="Corporation" <%=@entity.structure=='Corporation' ? 'checked' : 'unchecked'%>> </p>
+    <p>Partnership <input  type="radio" name="entity[structure]" id="entity_structure" value="Partnership" <%=@entity.structure=='Partnership' ? 'checked' : 'unchecked'%>> </p>
+
+    <%if !!@loans%>
+        <h3>Select/Change Loan</h3>
+        <%@loans.each do |loan|%>
+            <p><%=loan.name%> <input type="radio" name="entity[loan_id]" value="<%=loan.id%>" id="loan_id" <%=@entity.loan == loan ? 'checked' : 'unchecked'%>> </p>
+        <%end%>
+    <%end%>
 
     <input type='submit' value="Save">
 </form>

@@ -1,15 +1,16 @@
 <table style="width:100%">
   <tr>
     <th>Entity Number</th>
-    <th>Entity Name</th>
-    <th>Entity Amount</th>
+    <th>Entity Type</th>
+    <th>Entity Structure</th>
     <th>Loan</th>
   </tr>
   <tr>
     <td><a href="/entities/<%=@entity.id%>"><%=@entity.name%></a></td>
     <td><%=@entity.entity_type%></td>
     <td><%=@entity.structure%></td>
-    <td><a href="/loans/<%=@entity.loan.id%>"><%=@entity.loan.name%></a></td>
+    <td><%if !!@entity.loan%>
+        <a href="/loans/<%=@entity.loan.id%>"><%=@entity.loan.name%></a><%end%></td>
   </tr>
 </table>
 <br>
