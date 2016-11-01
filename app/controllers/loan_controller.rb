@@ -2,7 +2,7 @@ class LoanController < ApplicationController
 
     get '/loans' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
+        if logged_in?
             @loans = Loan.all
             erb :'/loans/index'
         else
@@ -12,7 +12,7 @@ class LoanController < ApplicationController
 
     get '/loans/new' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
+        if logged_in?
             @entities = Entity.all
             erb :'/loans/new'
         else
@@ -21,23 +21,27 @@ class LoanController < ApplicationController
     end
 
     post '/loans' do
-        @user = User.find(session[:id])
-        @loan = Loan.new(params[:loan])
-        @entities = Entity.all.select { |e| e.id.to_s == params[:entity_id] }
-        @loan.entities = @entities
-        if !@loan.save
-            flash[:message]="Error saving loan. Please check entries."
-            erb :'/loans/new'
+        if !logged_in?
+            redirect '/login'
         else
-            @loan.user = @user
-            @loan.save
-            redirect '/loans'
+            @loan = Loan.new(params[:loan])
+            params[:entity_ids].each do |id|
+                @loan.entities << Entity.all.select { |e| e.id.to_s == id }
+            end
+            if !@loan.save
+                flash[:message]="Error saving loan. Please check entries."
+                erb :'/loans/new'
+            else
+                @loan.user = current_user
+                @loan.save
+                redirect '/loans'
+            end
         end
     end
 
     get '/loans/:id' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
+        if logged_in?
             @loan = Loan.find(params[:id])
             erb :'/loans/show'
         else
@@ -47,11 +51,10 @@ class LoanController < ApplicationController
 
     get '/loans/:id/edit' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
+        if logged_in?
             @loan = Loan.find(params[:id])
-            @user = User.find(session[:id])
             @entities = Entity.all
-            if @user == @loan.user
+            if @loan.user == current_user
                 erb :'/loans/edit'
             else
                 flash[:message] = "Not your loan to edit"
@@ -63,21 +66,28 @@ class LoanController < ApplicationController
     end
 
     patch '/loans/:id' do
-        @loan = Loan.find(params[:id])
-        @loan.update(params[:loan])
-        @loan.save
-        redirect "/loans/#{@loan.id}"
+        if logged_in?
+            @loan = Loan.find(params[:id])
+            @loan.update(params[:loan])
+            @loan.save
+            redirect "/loans/#{@loan.id}"
+        else
+            redirect '/login'
+        end
     end
 
     delete '/loans/:id/delete' do
-        @loan = Loan.find(params[:id])
-        @user = User.find(session[:id])
-        if @loan.user == @user
-            @loan.delete
-            redirect '/loans'
+        if logged_in?
+            @loan = Loan.find(params[:id])
+            if @loan.user == current_user
+                @loan.delete
+                redirect '/loans'
+            else
+                flash[:message] = "Not your loan to delete"
+                redirect "/loans#{@loan.id}"
+            end
         else
-            flash[:message] = "Not your loan to delete"
-            redirect "/loans#{@loan.id}"
+            redirect "/login"
         end
     end
 end

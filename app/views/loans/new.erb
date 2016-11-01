@@ -13,11 +13,16 @@
 
     <%if !!@entities%>
         <h3>Select Entities for this loan:</h3>
+        <h4>Borrowers:</h4>
         <%@entities.each do |entity|%>
-            <h4>Borrowers:</h4> <%if entity.entity_type == "Borrower"%>
-                <p><%=entity.name%> <input type="checkbox" name="entity_id" value="<%=entity.id%>" id="loan"></p>
-            <h4>Operating Companies:</h4> <%elsif entity.entity_type == "Operating Company"%>
-                <p><%=entity.name%> <input type="checkbox" name="entity_id" value="<%=entity.id%>" id="loan"></p>
+            <%if entity.entity_type == "Borrower"%>
+                <p><%=entity.name%> <input type="checkbox" name="entity_ids[]" value="<%=entity.id%>" id="loan"></p>
+            <%end%>
+        <%end%>
+        <h4>Operating Companies:</h4>
+        <%@entities.each do |entity|%>
+            <%if entity.entity_type == "Operating Company"%>
+                <p><%=entity.name%> <input type="checkbox" name="entity_ids[]" value="<%=entity.id%>" id="loan"></p>
             <%end%>
         <%end%>
     <%end%>

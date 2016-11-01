@@ -12,8 +12,7 @@ class ApplicationController < Sinatra::Base
 
     get '/' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
-            @user = User.find(session[:id])
+        if logged_in?
             redirect '/loans'
         else
             erb :index
@@ -22,8 +21,7 @@ class ApplicationController < Sinatra::Base
 
     get '/signup' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
-            @user = User.find(session[:id])
+        if logged_in?
             redirect '/loans'
         else
             erb :signup
@@ -46,8 +44,8 @@ class ApplicationController < Sinatra::Base
                 end
                 redirect '/signup'
             else
-                session[:id] = @user.id
                 @user.save
+                session[:id] = @user.id
                 redirect '/loans'
             end
         end
@@ -55,8 +53,7 @@ class ApplicationController < Sinatra::Base
 
     get '/login' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
-            @user = User.find(session[:id])
+        if logged_in?
             redirect 'loans'
         else
             erb :login
@@ -78,9 +75,17 @@ class ApplicationController < Sinatra::Base
     end
 
     get '/logout' do
-        if !!session[:id]
+        if logged_in?
             session.clear
         end
         redirect '/'
+    end
+
+    def logged_in?
+        !!current_user
+    end
+
+    def current_user
+        @current_user ||= User.find(session[:id])
     end
 end

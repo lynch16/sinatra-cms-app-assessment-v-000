@@ -2,7 +2,7 @@ class EntityController < ApplicationController
 
     get '/entities' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
+        if logged_in?
             @entities = Entity.all
             erb :'/entities/index'
         else
@@ -12,7 +12,7 @@ class EntityController < ApplicationController
 
     get '/entities/new' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
+        if logged_in?
             @loans = Loan.all
             erb :'/entities/new'
         else
@@ -21,20 +21,24 @@ class EntityController < ApplicationController
     end
 
     post '/entities' do
-        @user = User.find(session[:id])
-        @entity = Entity.new(params[:entity])
-        if !@entity.save
-            flash[:message]="Error saving entity. Please check entries."
-            erb :'/entities/new'
+        if !logged_in
+            redirect '/login'
         else
-            @entity.save
-            redirect '/entities'
+            @user = current_user
+            @entity = Entity.new(params[:entity])
+            if !@entity.save
+                flash[:message]="Error saving entity. Please check entries."
+                erb :'/entities/new'
+            else
+                @entity.save
+                redirect '/entities'
+            end
         end
     end
 
     get '/entities/:id' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
+        if logged_in?
             @entity = Entity.find(params[:id])
             erb :'/entities/show'
         else
@@ -44,8 +48,8 @@ class EntityController < ApplicationController
 
     get '/entities/:id/edit' do
         @route = Rack::Request.new(env).path_info
-        if !!session[:id]
-            @user = User.find(session[:id])
+        if logged_in?
+            @user = current_user
             @entity = Entity.find(params[:id])
             #update entity.last_user once column added
             erb :'/entities/edit'
@@ -55,17 +59,23 @@ class EntityController < ApplicationController
     end
 
     patch '/entities/:id' do
-        @entity = Entity.find(params[:id])
-        @entity.update(params[:entity])
-        @entity.save
-        redirect "/entities/#{@entity.id}"
+        if logged_in?
+            @entity = Entity.find(params[:id])
+            @entity.update(params[:entity])
+            @entity.save
+            redirect "/entities/#{@entity.id}"
+        else
+            redirect "/login"
+        end
     end
 
     delete '/entities/:id/delete' do
-        if !!session[:id]
+        if logged_in?
             @entity = Entity.find(params[:id])
             @entity.delete
+            redirect '/entities'
+        else
+            redirect '/login'
         end
-        redirect '/entities'
     end
 end
